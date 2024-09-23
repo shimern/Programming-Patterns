@@ -1,25 +1,25 @@
 class Student(
     val id : Int = 0,
-    name: String ,
     surname : String,
+    name: String ,
     patronymic : String,
+    phone : String?=null,
     tg : String?=null,
     email : String?=null,
-    git : String?=null,
-    phone : String?=null)
+    git : String?=null, )
     {
 
         companion object {
             private val phoneRegex = Regex("""^\+?[0-9]{10,15}$""")
             private val nameRegex = Regex("""^[\p{L}-]+$""")
-            private val telegramRegex = Regex("""^@\w{5,32}$""")
+            private val tgRegex = Regex("""^@\w{5,32}$""")
             private val emailRegex = Regex("""^[A-Za-z0-9_+-]+(\.[A-Za-z0-9_+-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)+$""")
             private val gitRegex = Regex("""^(https?://)?([A-Za-z0-9]+\.)?[A-Za-z0-9]+\.[A-Za-z0-9]+/[A-Za-z0-9_-]+/?$""")
 
             fun isValidName(value: String) = nameRegex.matches(value)
             fun isValidPatronymic(value: String) = value.isEmpty() || isValidName(value)
             fun isValidPhoneNumber(value: String?) = value == null || phoneRegex.matches(value)
-            fun isValidTelegram(value: String?) = value == null || telegramRegex.matches(value)
+            fun isValidTelegram(value: String?) = value == null || tgRegex.matches(value)
             fun isValidEmail(value: String?) = value == null || emailRegex.matches(value)
             fun isValidGit(value: String?) = value == null || gitRegex.matches(value)
         }
@@ -27,17 +27,17 @@ class Student(
         constructor(id: Int,
                     surname: String,
                     name: String,
-                    patronym: String,
-                    git: String) : this(id, surname, name, patronym) {
+                    patronymic: String,
+                    git: String) : this(id, surname, name, patronymic) {
             this.git = git
             println("second constructor for git")
         }
         constructor(id: Int,
                     surname: String,
                     name: String,
-                    patronym: String,
+                    patronymic: String,
                     email: String,
-                    phone: String) : this(id, surname, name, patronym) {
+                    phone: String) : this(id, surname, name, patronymic) {
             this.email = email
             this.phone = phone
             println("second constructor for email and phone")
@@ -101,7 +101,7 @@ class Student(
             hashMap["id"]       as  Int,
             hashMap["surname"]  as  String,
             hashMap["name"]     as  String,
-            hashMap["patronym"] as  String,
+            hashMap["patronymic"] as  String,
             hashMap["phone"]    as? String,
             hashMap["telegram"] as? String,
             hashMap["email"]    as? String,
@@ -110,4 +110,24 @@ class Student(
         {
             println("Hash Map constructor")
         }
+
+        fun validate_git(): Boolean{
+            var res=false
+            if (git!=null){
+                res=true
+                println("У студента $id гит есть")
+            }
+            else println("У студента $id гита нет")
+            return res
+        }
+        fun validate_tg(): Boolean{
+            var res=false
+            if (tg!=null){
+                res=true
+                println("У студента $id тг есть")
+            }
+            else println("У студента $id тг нет")
+            return res
+        }
+
 }
