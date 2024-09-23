@@ -9,6 +9,11 @@ class Student(
     phone : String?=null)
     {
 
+        companion object {
+            private val phoneRegex = Regex("""^\+?[0-9]{10,15}$""")
+            fun isValidPhoneNumber(value: String?) = value == null || phoneRegex.matches(value)
+        }
+
         constructor(id: Int,
                     surname: String,
                     name: String,
@@ -54,7 +59,10 @@ class Student(
 
         var phone = phone
             get() = field
-            set(value) { field = value }
+            set(value) {
+                if (isValidPhoneNumber(value)) field = value
+                else throw IllegalArgumentException("Некорректный телефонный номер")
+            }
 
         override fun toString(): String {
             var str = "[ID $id] $surname $name $patronymic"
