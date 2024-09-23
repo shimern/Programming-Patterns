@@ -8,6 +8,26 @@ class Student(
     git : String?=null,
     phone : String?=null)
     {
+
+        constructor(id: Int,
+                    surname: String,
+                    name: String,
+                    patronym: String,
+                    git: String) : this(id, surname, name, patronym) {
+            this.git = git
+            println("second constructor for git")
+        }
+        constructor(id: Int,
+                    surname: String,
+                    name: String,
+                    patronym: String,
+                    email: String,
+                    phone: String) : this(id, surname, name, patronym) {
+            this.email = email
+            this.phone = phone
+            println("second constructor for email and phone")
+        }
+
         var surname = surname
             get() = field
             set(value) { field = value }
@@ -46,5 +66,15 @@ class Student(
         }
 
         fun info()= println(this.toString())
-    
+
+
+        init {
+            this.surname = surname
+            this.name = name
+            this.patronymic = patronymic
+            this.phone = phone
+            this.tg = tg
+            this.email = email
+            this.git = git
+        }
 }
