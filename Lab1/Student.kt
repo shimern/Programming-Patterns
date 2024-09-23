@@ -130,4 +130,10 @@ class Student(
             return res
         }
 
+        fun setContacts(hashMap: Map<String, String?>) {
+            if (hashMap.containsKey("phone")) phone = hashMap["phone"]
+            if (hashMap.containsKey("telegram")) tg = hashMap["telegram"]
+            if (hashMap.containsKey("email")) email = hashMap["email"]
+        }
+
 }
